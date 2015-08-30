@@ -60,17 +60,17 @@ Today, I will show you how to manipulate the appearance of the webpage with a bi
 
 `Note: this demo will require Google Chrome`
 
-In your browser, right-click in the current tutorial window and choose the `Inspect Element` option.
+- In your browser, right-click in the current tutorial window and choose the `Inspect Element` option.
 
 This will open up your **Chrome Developer Tools**, a powerful tool for web development.
 
 ![Chrome Console]({{ site.url }}/assets/how-to-start-programming/console.png)
 
-Next, click the `Console` tab on the right side.
+- Next, click the `Console` tab on the right side.
 
 <br>
 
-Once the console opens up, type this line of JavaScript into the console:
+- Once the console opens up, type this line of JavaScript into the console:
 
 {% highlight js %}
 document.body.style.backgroundColor = 'red';
