@@ -4,8 +4,9 @@ title: About
 permalink: /about/
 ---
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+This is Stanley Yang's [Github.io](https://github.com/stanleycyang) page.
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+I will blog about technologies, apps that I am creating, and beautiful code [here](http://stanleycyang.github.io).
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+If you need to get in touch with me, reach out at
+[StanleyCYang.com](http://www.stanleycyang.com).
