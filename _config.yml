@@ -2,7 +2,7 @@
 title: Stanley Yang
 email: stanley@stanleycyang
 description: > # this means to ignore newlines until "baseurl:"
-  A compilation of my knowledge and opinions on technology and life
+  A compilation of my knowledge and opinions on technology
 baseurl: "" # the subpath of your site, e.g. /blog/
 url: "http://stanleycyang.github.io" # the base hostname & protocol for your site
 twitter_username: StanleyCYang

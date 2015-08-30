@@ -52,6 +52,12 @@ Besides the money, coding is **addicting**. It is better than the best video gam
 
 ##Getting started
 
+JavaScript is the language of the web today (thus making it **[the most popular language in the world](http://githut.info/)**).
+
+![JS Logo]({{ site.url }}/assets/how-to-start-programming/js_logo.png)
+
+Today, I will show you how to manipulate the appearance of the webpage with a bit of JavaScript magic.
+
 `Note: this demo will require Google Chrome`
 
 In your browser, right-click in the current tutorial window and choose the `Inspect Element` option.
@@ -90,7 +96,7 @@ Here are some great resources for getting started with JavaScript:
 
 ###If you enjoyed this blog..
 
-Let me know at [stanley@stanleycyang.com](stanley@stanleycyang.com)!
+Let me know at <mailto:stanley@stanleycyang.com>
 
-I would love to get you started coding with tips, advice, or references. 
+I would love to get you started coding with tips, advices, references. 
 
