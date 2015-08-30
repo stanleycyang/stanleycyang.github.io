@@ -92,5 +92,5 @@ Here are some great resources for getting started with JavaScript:
 
 Let me know at [stanley@stanleycyang.com](stanley@stanleycyang.com)!
 
-I would love to get you started coding with tips, advices, references. 
+I would love to get you started coding with tips, advices, or references. 
 
