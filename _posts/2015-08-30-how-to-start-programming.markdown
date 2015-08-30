@@ -86,6 +86,8 @@ Here are some great resources for getting started with JavaScript:
 - [Code Academy](https://www.codecademy.com/tracks/javascript/resume)
 - [Code School](https://www.codeschool.com/paths/javascript)
 
+<br>
+
 ###If you enjoyed this blog..
 
 Let me know at [stanley@stanleycyang.com](stanley@stanleycyang.com)!
