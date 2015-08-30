@@ -3,6 +3,7 @@ layout: post
 title: "How to Start Programming"
 date: 2015-08-30 11:33:40
 categories: technology life
+comments: true
 ---
 
 Basic `Person` class in JavaScript (**ES2015 syntax**)
@@ -100,3 +101,19 @@ Let me know at <mailto:stanley@stanleycyang.com>
 
 I would love to get you started coding with tips, advices, references. 
 
+{% if page.comments %}
+<div id="disqus_thread"></div>
+<script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES * * */
+    var disqus_shortname = 'stanleycyang';
+    
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+
+{% endif %}
