@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "How to Learn Programming"
+title: "How to Start Programming"
 date: 2015-08-30 11:33:40
 categories: technology life
 ---
@@ -58,7 +58,7 @@ In your browser, right-click in the current tutorial window and choose the `Insp
 
 This will open up your **Chrome Developer Tools**, a powerful tool for web development.
 
-![Chrome Console]({{ site.url }}/assets/how-to-start-programming/console.png)
+![Chrome Console]({{ site.url }}//assets/how-to-start-programming/console.png)
 
 Next, click the `Console` tab on the right side.
 
