@@ -58,9 +58,11 @@ In your browser, right-click in the current tutorial window and choose the `Insp
 
 This will open up your **Chrome Developer Tools**, a powerful tool for web development.
 
-![Chrome Console]({{ site.url }}//assets/how-to-start-programming/console.png)
+![Chrome Console]({{ site.url }}/assets/how-to-start-programming/console.png)
 
 Next, click the `Console` tab on the right side.
+
+<br>
 
 Once the console opens up, type this line of JavaScript into the console:
 
