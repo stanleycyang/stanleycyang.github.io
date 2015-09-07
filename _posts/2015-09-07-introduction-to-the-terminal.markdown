@@ -81,6 +81,8 @@ $ ls
 $ rm -rf TheAwesomeTutorial stanley is cool
 {% endhighlight %}
 
+<br />
+
 ### The results
 
 ![The steps]({{ site.url }}/assets/introduction-to-command-line-interface/tutorial.png)
@@ -105,7 +107,8 @@ $ rm -rf TheAwesomeTutorial stanley is cool
 ### At this point in time..
 
 You are now a practioner of the terminal. Regardless of whether you become a programmer or just want to be more efficient on a computer, these skills will translate to all parts of your life if you become fluent.
-I
+
+
 <br />
 
 ###Continuing your personal development
