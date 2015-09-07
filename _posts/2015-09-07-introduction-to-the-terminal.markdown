@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Introduction to the Command Line Interace (CLI)"
+title: "Introduction to the Command Line Interface (CLI)"
 date: 2015-08-30 11:33:40
 categories: technology life
 comments: true
@@ -12,6 +12,8 @@ Basic `Command Line Interface` commands
 $ echo "Hello World" >> HelloWorld.txt
 $ cat HelloWorld.txt | say
 {% endhighlight %}
+
+<br />
 
 ##The Command Line Interface
 
@@ -29,7 +31,7 @@ The Command Line Interface (CLI) is a human-computer interface that relies on te
 
 > Write programs that do one thing and do it well. 
 
-The Command Line Interface (CLI) follows this philophy. The commands you use will be very self-contained and executes on its purpose to perfection.
+The Command Line Interface (CLI) follows this philophy. The commands you use will be very self-contained and executes on its purpose in the most effective manner.
 
 <br />
 
@@ -57,6 +59,8 @@ You can access your Terminal on a `Macintosh` by:
 |mv|move|
 |man|user manual|
 
+<br />
+
 ### Getting started
 
 In your terminal now, type the following:
@@ -76,7 +80,11 @@ $ ls
 $ rm -rf TheAwesomeTutorial stanley is cool
 {% endhighlight %}
 
+### The results
+
 ![The steps]({{ site.url }}/assets/introduction-to-command-line-interface/tutorial.png)
+
+<sub><sup>What it looks like in my terminal</sup></sub>
 
 <br />
 
