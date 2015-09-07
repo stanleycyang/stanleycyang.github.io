@@ -59,6 +59,7 @@ You can access your Terminal on a `Macintosh` by:
 |mv|move|
 |man|user manual|
 
+
 <br />
 
 ### Getting started
