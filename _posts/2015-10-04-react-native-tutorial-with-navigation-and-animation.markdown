@@ -31,5 +31,37 @@ We will be building an iOS application in this tutorial. However, once you learn
 
 ##Getting Started
 
+React Native is completely [open-source](https://github.com/facebook/react-native). Feel free to clone it or fork it!
 
+You will be using your CLI (Command Line Interface) to create your project. 
 
+####Basic requirements
+
+- [NodeJS](https://nodejs.org/en/)
+- [Homebrew](http://brew.sh/)
+
+*If you don't have the requirements already installed, make sure you go to their homepage and install them before going on.*
+
+####Installation
+
+If you do not have node yet, let's use Homebrew to install Node.js.
+
+	$ brew install node
+
+Then, use Homebrew to install [watchman](https://facebook.github.io/watchman/), a file watcher from Facebook. It will watch your code for changes and rebuild accordingly.
+
+	$ brew install watchman
+
+Once you have those dependencies installed, let's use npm (node package manager) to install the React Native CLI tool.
+
+	$ npm install -g react-native-cli
+
+This tool will help us generate the iOS /Android application and much more!
+
+####Creating the basic iOS app
+
+Now, lets navigate to the folder you want to store your React Native iOS application and use the React Native CLI tool to generate the new project!
+
+	$ react-native init ReactNativeTutorial
+
+This command will give you the starter code you need to build and run a basic iOS application and install the basic dependencies you will need!
