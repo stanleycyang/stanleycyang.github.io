@@ -97,7 +97,7 @@ Here are some great resources for getting started with JavaScript:
 
 ###If you enjoyed this blog..
 
-Let me know at <mailto:stanley@stanleycyang.com>
+Let me know at <mailto:me@stanleycyang.com>
 
 I would love to get you started coding with tips, advices, references. 
 
