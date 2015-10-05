@@ -39,6 +39,7 @@ You will be using your CLI (Command Line Interface) to create your project.
 
 - [NodeJS](https://nodejs.org/en/)
 - [Homebrew](http://brew.sh/)
+- XCode
 
 *If you don't have the requirements already installed, make sure you go to their homepage and install them before going on.*
 
@@ -64,4 +65,18 @@ Now, lets navigate to the folder you want to store your React Native iOS applica
 
 	$ react-native init ReactNativeTutorial
 
-This command will give you the starter code you need to build and run a basic iOS application and install the basic dependencies you will need!
+This command will give you the starter code (in a folder called ReactNativeTutorial) you will need to build and run a basic iOS application.
+
+####Running the application
+
+When you look at your file structure, you should have something that looks like the following:
+
+- **android/** (*everything android-related*)
+- **index.android.js** (*the basis of the React Native code for your android application*)
+- **index.ios.js** (*the basis of the React Native code for your iOS application*)
+- **ios/** (*everything iOS-related*)
+- **node_modules/** (*all your dependencies, installed locally*)
+- **package.json** (*a JSON file with basic information about your application*)
+
+Open up the file **ReactNativeTutorial.xcodeproj** within the **ios** folder then build and run. Your simulator will start up and display the following:
+
