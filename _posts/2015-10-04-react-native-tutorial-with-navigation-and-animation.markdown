@@ -80,3 +80,4 @@ When you look at your file structure, you should have something that looks like 
 
 Open up the file **ReactNativeTutorial.xcodeproj** within the **ios** folder then build and run. Your simulator will start up and display the following:
 
+![iOS Simulator]({{ site.url }}/assets/react-native-tutorial-with-navigation-and-animation/React-Starter.png)
