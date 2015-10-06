@@ -455,12 +455,12 @@ class PageOne extends Component {
     super(props);
   }
   _handlePress() {
-  	// Go to page 2, simply by pushing!
+    // Go to page 2, simply by pushing!
     this.props.navigator.push({id: 2});
   }
 
   _goBack() {
-  	// Go to the previous page, by simply popping!
+    // Go to the previous page, by simply popping!
     this.props.navigator.pop();
   }
 
@@ -536,10 +536,10 @@ class PageTwo extends Component {
     return (
       <View style={[styles.container, {backgroundColor: 'blue'}]}>
         <Text style={styles.welcome}>Page two</Text>
-        <TouchableHighlight onPress={this._handlePress.bind(this)}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 20, backgroundColor: 'black'}}>
+        {% raw %}      
+        <TouchableHighlight onPress={this._handlePress.bind(this)} style={{paddingVertical: 10, paddingHorizontal: 20, backgroundColor: 'black'}}>
+        {% endraw %}
             <Text style={styles.welcome}>Go to last page</Text>
-          </View>
         </TouchableHighlight>
         <TouchableHighlight onPress={this._goBack.bind(this)} style={styles.backButton}>
           <Text style={styles.welcome}>Back</Text>
@@ -592,8 +592,8 @@ class PageThree extends Component {
     return (
       <View style={[styles.container, {backgroundColor: 'purple'}]}>
         <Text style={styles.welcome}>Page three</Text>
-        <TouchableHighlight onPress={this._handlePress.bind(this)}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 20, backgroundColor: 'black'}}>
+        {% raw %}
+        <TouchableHighlight onPress={this._handlePress.bind(this)} style={{paddingVertical: 10, paddingHorizontal: 20, backgroundColor: 'black'}}>{% endraw %}
             <Text style={styles.welcome}>Go to page one</Text>
           </View>
         </TouchableHighlight>
@@ -610,3 +610,24 @@ module.exports = PageThree;
 
 
 {% endhighlight %}
+
+<br />
+
+At this point in time, you will now have three pages interconnected by Navigator. Also, notice that you can also swipe right to go to the previous page. All that is thanks to the `CustomSceneConfig` we did early on!
+
+With the `Navigator` portion now complete, let's dive into the part you have been waiting for -- the `Animated` API!
+
+<br />
+
+###Animated API
+<hr />
+<br />
+
+Our goal will be to fill out each page with a different type of animation. Since we have 3 pages, we will be creating 3 different animations.
+
+Let's create the files for the animation components with the help of our terminal:
+
+	$ touch components/PlayGround.js 
+	$ touch components/Gestures.js
+	$ touch components/PanResponder.js
+
