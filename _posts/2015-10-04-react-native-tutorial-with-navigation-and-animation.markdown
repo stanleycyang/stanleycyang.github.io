@@ -376,7 +376,7 @@ _renderScene(route, navigator) {
 
 We now check what the route id is, then redirect the user to the correct page.
 
-At this point in time, we can now build out our three pages, and dive head first into React Native Animations.
+At this point in time, we can now build out our three navigation pages and dive head-first into React Native Animations.
 
 ###Layout.js
 
@@ -451,6 +451,9 @@ const {
 } = React;
 
 class PageOne extends Component {
+  constructor(props) {
+    super(props);
+  }
   _handlePress() {
   	// Go to page 2, simply by pushing!
     this.props.navigator.push({id: 2});
@@ -480,6 +483,19 @@ class PageOne extends Component {
 // Export this component to be used by the parent component
 module.exports = PageOne;
 {% endhighlight %}
+<br />
+
+- Again, we bring in all the parts we will need with the `require` and `destructuring` syntax.
+
+- Within the PageOne class, we now have a `constructor` method. The constructor method simply runs when the class is initialized. It takes in `props` as an argument, which we will use in the `super(props)` call. What the `super(props)` call will do is simply allow us to reference the props as `this.props`. Since we flowed `navigator` into this component from our parent, we can now reference the `navigator` as `this.props.navigator`.
+
+- Now onto the the `_handlePress` and `_goBack` methods. They simply move forward (push) and go to the previous page (pop). Simple, right?
+
+- We will now tie the `_handlePress` method to the first `TouchableHighlight` component, so whenever a user clicks it we will go to page two.
+
+- We will also tie the `_goBack` method to the second `TouchableHighlight` component, so it will take a user to the previous page whenever its clicked.
+
+>**Note**: In ES2015, the context is not automatically bound to the class instance methods. Therefore, we have to manually bind it (ie. `this._handlePress.bind(this)`).
 
 Page two will follow a similar format. You can figure it out, right? ;-)
 
@@ -506,6 +522,9 @@ const {
 } = React;
 
 class PageTwo extends Component {
+  constructor(props) {
+    super(props);
+  }
   _handlePress() {
     this.props.navigator.push({id :3})
   }
@@ -559,6 +578,9 @@ const {
 } = React;
 
 class PageThree extends Component {
+  constructor(props) {
+    super(props);
+  }
   _handlePress() {
     this.props.navigator.push({id :1})
   }
