@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tutorial: Handcrafting an iOS Application with React Native (and lots of Love)"
+title: "Tutorial: Handcrafting an iOS Application with React Native (and lots of love)"
 date: 2015-10-04 10:02:30
 categories: technology reactjs native ios
 comments: true
@@ -1037,11 +1037,18 @@ Excellent! Now we will build our last component, the `PanResponder`.
 <hr />
 <br />
 
+Let's take a minute and explain what the [PanResponder](https://facebook.github.io/react-native/docs/panresponder.html) API is all about.
+
+It is a library in React Native that recognizes simple touch gestures, and allows us to track how a user is interacting with the application. 
+
+Today, we will use this library to allow us to build a draggable square within this application. If you aren't excited now, you should be.
+
 Write this code into `PanResponder.js`:
 
 {% highlight js %}
 const React = require('react-native')
 
+// Remember to load in the PanResponder Library!
 const {
   Component,
   StyleSheet,
@@ -1052,12 +1059,15 @@ const {
   TouchableWithoutFeedback
 } = React;
 
+// Set the square dimensions to be 40 by 40
 const SQUARE_DIMENSIONS = 40
 
+// Create the PanResponderAPI Component
 class PanResponderAPI extends Component {
   constructor (props) {
     super(props)
 
+	 // We will be dealing with the X and Y coordinate of the square, so set the value to Animated.ValueXY
     this.state = {
       pan: new Animated.ValueXY()
     }
@@ -1066,20 +1076,23 @@ class PanResponderAPI extends Component {
     this.getStyle = this.getStyle.bind(this)
   }
 
+  // Before the component is mounted to the page, lets work with our PanResponder Library
   componentWillMount () {
+    // Ask to be the responder for our app. Make sure we say true
     this._panResponder = PanResponder.create({
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onStartShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponder: (evt, gestureState) => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+      // The gesture has now started. Show the offset on the page!
       onPanResponderGrant: (evt, gestureState) => {
-        // The guesture has started. Show visual feedback so the user knows
+        // The guesture has started. Grab the values of where the square is moving to
         // what is happening!
         this.state.pan.setOffset({
           x: this.state.pan.x.__getAnimatedValue(),
           y: this.state.pan.y.__getAnimatedValue()
         })
-
+        // Default value of the square
         this.state.pan.setValue({
           x: 0,
           y: 0
@@ -1087,6 +1100,7 @@ class PanResponderAPI extends Component {
 
         // gestureState.{x,y}0 will be set to zero now
       },
+      // Input the coordinates
       onPanResponderMove: Animated.event([
         null,
         {
@@ -1104,7 +1118,7 @@ class PanResponderAPI extends Component {
       }
     })
   }
-
+  // This method will go into the animated component
   getStyle () {
     return [
       styles.square,
@@ -1124,12 +1138,14 @@ class PanResponderAPI extends Component {
   render () {
     return (
       <View style={styles.container}>
+        // Use a spread operator to put in our panHandlers and tie it with the component
         <Animated.View style={this.getStyle()} {...this._panResponder.panHandlers} />
       </View>
     )
   }
 }
 
+// Basic styling
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -1143,10 +1159,45 @@ const styles = StyleSheet.create({
   }
 })
 
+// Export the component to be used in PageThree
 module.exports = PanResponderAPI
 {% endhighlight %}
 
 <br />
+
+We will set `this._panResponder` before the component has loaded, and this will allow us to grab the user interaction with the component. We grab the coordinates of where the user is moving to and then set our square to those coodinates.
+
+At this point, we can now load this code into `PageThree`! Let's do the following:
+
+{% highlight js %}
+
+const React = require('react-native')
+const styles = require('../stylesheets/layout')
+
+// Import component
+const PanResponder = require('./PanResponder')
+
+...
+
+  render() {
+    return (
+      <View style={[styles.container, {backgroundColor: 'purple'}]}>
+        <PanResponder />
+        ...
+      </View>
+    )
+  }
+}
+
+...
+{% endhighlight %}
+
+Now when we save and run the code, we should see the following: 
+
+![Draggable Square]({{ site.url }}/assets/react-native-tutorial-with-navigation-and-animation/Square.png)
+
+
+
 
 ##What have we learned?
 
