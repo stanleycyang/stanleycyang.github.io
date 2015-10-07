@@ -10,3 +10,7 @@ github_username:  stanleycyang
 
 # Build settings
 markdown: kramdown
+
+# gems
+gems:
+  - jekyll-sitemap
