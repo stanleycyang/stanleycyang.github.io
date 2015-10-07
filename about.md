@@ -4,9 +4,7 @@ title: About
 permalink: /about/
 ---
 
-This is Stanley Yang's [Github.io](https://github.com/stanleycyang) page.
+SoCal full-stack engineer. I like basketball, dogs, and curry.
 
-I will blog about technologies, apps that I am creating, and beautiful code [here](http://stanleycyang.github.io).
-
-If you need to get in touch with me, reach out at
-[StanleyCYang.com](http://www.stanleycyang.com).
+Shoot me a buzz on
+[Twitter](https://www.twitter.com/stanleycyang), [GitHub](https://www.github.com/stanleycyang), or [http://www.stanleycyang.com]().
