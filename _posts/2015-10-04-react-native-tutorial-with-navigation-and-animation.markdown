@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Tutorial: Handcrafting an iOS Application with React Native (with Love)"
+title: "Tutorial: Handcrafting an iOS Application with React Native (and lots of Love)"
 date: 2015-10-04 10:02:30
 categories: technology reactjs native ios
 comments: true
