@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "React Native Tutorial with Navigation and Animation"
+title: "Tutorial: Handcrafting an iOS Application with React Native (with Love)"
 date: 2015-10-04 10:02:30
 categories: technology reactjs native ios
 comments: true
@@ -12,6 +12,10 @@ comments: true
 - Teach the fundamentals of **Navigator** in a React Native iOS application
 - Break down the **Animated API** and perform amazing animations
 - Tap into **gesture detection** with PanResponder in iOS
+
+<br />
+
+> **Note**: If you want to skip the tutorial and jump straight to the code, the completed [source code](https://github.com/stanleycyang/rn_animation_tutorial) is available on my [GitHub](https://github.com/stanleycyang) [here](https://github.com/stanleycyang/rn_animation_tutorial).
 
 <br />
 
@@ -631,3 +635,531 @@ Let's create the files for the animation components with the help of our termina
 	$ touch components/Gestures.js
 	$ touch components/PanResponder.js
 
+The animations we will be creating are as follows:
+
+1. In `PlayGround.js`, we will create an expanding circle effect that will cover the entire screen.
+2. In `Gestures.js`, we will create a button that allows the user to press and hold until it is filled.
+3. In `PanResponder.js`, we will create a square that is draggable aroud the page, but will return to its initial value once the user lets go.
+
+<br />
+
+####PlayGround.js
+<hr />
+<br />
+
+Write this code into `PlayGround.js`:
+
+{% highlight js %}
+
+const React = require('react-native')
+const Dimensions = require('Dimensions')
+
+// Destructured syntax, make sure you include the Animated and Easing API
+const {
+  Component,
+  StyleSheet,
+  Animated,
+  Text,
+  Easing,
+  TouchableOpacity,
+  View
+} = React;
+
+// Again, get the width and height of the page
+const {
+  width,
+  height
+} = Dimensions.get('window')
+
+// Create the dimension for the circle (width: 40, height: 40, border radius: 20)
+const CIRCLE_DIMENSIONS = 40
+
+// Set the configuration for our animation timing
+const TIMING_CONFIG = {
+  duration: 300, // Last for 300 ms
+  delay: 0, // 0 ms delay
+  easing: Easing.in(Easing.ease) //  Use the Easing API here
+}
+
+// Create the PlayGround component
+class Playground extends Component {
+  constructor (props) {
+    // Flow down the props
+    super(props)
+    
+    // Set the initial state of the PlayGround
+    this.state = {
+      previewOpen: false,
+      w: new Animated.Value(CIRCLE_DIMENSIONS),
+      h: new Animated.Value(CIRCLE_DIMENSIONS),
+      br: new Animated.Value(CIRCLE_DIMENSIONS/2)
+    }
+	
+	 // Again, we have to bind to provide the context (this) to the _triggerAnimation function
+    this._triggerAnimation = this._triggerAnimation.bind(this)
+
+  }
+
+	// @params: w1, h1, br1, w2, h2, br2 : Integer
+  _triggerAnimation (w1, h1, br1, w2, h2, br2) {
+    // Set preview state
+    this.setState({
+      previewOpen: !this.state.previewOpen
+    })
+
+	 // Start the sequence. Notice how it takes an array of animations. Everything in here will happen sequentially (FIFO)
+    Animated.sequence([
+      // Parallel also takes an array of animations. These animations will happen in parallel
+      Animated.parallel([
+        // From the initial width (40), we will move it to the new width
+        Animated.timing(this.state.w, {
+          ...TIMING_CONFIG,
+          toValue: w1
+        }),
+        // From the initial height (40), we will move it to the new height
+        Animated.timing(this.state.h, {
+          ...TIMING_CONFIG,
+          toValue: h1
+        }),
+        // From the initial borderRadius (20), we will move it to the new borderRadius
+        Animated.timing(this.state.br, {
+          ...TIMING_CONFIG,
+          toValue: br1
+        })
+      ]),
+      Animated.parallel([
+        Animated.timing(this.state.w, {
+          ...TIMING_CONFIG,
+          toValue: w2
+        }),
+        Animated.timing(this.state.h, {
+          ...TIMING_CONFIG,
+          toValue: h2
+        }),
+        Animated.timing(this.state.br, {
+          ...TIMING_CONFIG,
+          toValue: br2
+        })
+      ])
+    ]).start()
+  }
+  // This is a part of the component lifecycle. When the component mounts onto the page, it'll run this algorithm
+  componentDidMount () {
+    this._triggerAnimation(width, width, width/2, width, height, 0)
+  }
+
+  // When the close button is clicked, run this closing animation
+  _closePreview () {
+    this._triggerAnimation(width, width, width/2, CIRCLE_DIMENSIONS, CIRCLE_DIMENSIONS, CIRCLE_DIMENSIONS/2)
+  }
+
+  // Returns the current style of the element. We will plug this method directly into the element
+  getStyle () {
+    return [
+      styles.circle,
+      {
+        width: this.state.w,
+        height: this.state.h,
+        borderRadius: this.state.br
+      }
+    ]
+  }
+  // The one essential function. This will render the view
+  render () {
+    let CloseButton
+
+    if (this.state.previewOpen) {
+       CloseButton =
+          <TouchableOpacity onPress={this._closePreview.bind(this)} style={styles.closeButton}>
+            <Text>Close me</Text>
+          </TouchableOpacity>
+    }
+
+    return (
+      <View style={styles.container}>
+        <Animated.View
+          style={this.getStyle()} />
+          { CloseButton }
+      </View>
+    )
+  }
+}
+
+// Nothing new, provide styles for the component
+const styles = {
+  container: {
+    flex: 1
+  },
+  circle: {
+    backgroundColor: 'darkgreen'
+  },
+  closeButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 65,
+    backgroundColor: 'red',
+    position: 'absolute',
+    top: 20,
+    left: 0,
+  }
+}
+
+// Export it for use in the PageOne Component
+module.exports = Playground;
+
+
+{% endhighlight %}
+
+<br />
+
+React Native provides a great API for animations call [`Animated`](https://facebook.github.io/react-native/docs/animations.html). 
+
+This allows us to run a simple animation (`Animated.timing`, `Animated.decay`, `Animated.spring`). It also lets us chain animations in sequence (`Animated.sequence`) or in parallel (`Animated.parallel`). All we have to do is provide an `Animated.Value`, then tie that `Animated.Value` into the component we want to animate! Easy, right?
+
+To see it in action, all we have to do is import it into the `PageOne` component, as follows (Beneath the react and styles import in `PageOne`:
+
+{% highlight js %}
+...
+// Require component here
+const Playground = require('./PlayGround');
+...
+class PageOne extends Component {
+  ...
+
+  render() {
+    return (
+      <View style={[styles.container, {backgroundColor: 'green'}]}>
+        <Playground /> // Add component here
+		 ...	
+      </View>
+    )
+  }
+}
+...
+{% endhighlight %}
+
+Now run the app, and on `PageOne`, you will see our screen being turn to a dark shade of green!:
+
+![Green Screen]({{ site.url }}/assets/react-native-tutorial-with-navigation-and-animation/Green-Screen.png)
+
+Awesome! Let's go on to build the animated button.
+
+<br />
+
+####Gestures.js
+<hr />
+<br />
+
+Write this code into `Gestures.js`:
+
+{% highlight js %}
+const React = require('react-native')
+
+// Bring in the Animated API
+const {
+  StyleSheet,
+  Animated,
+  Component,
+  View,
+  Text,
+  TouchableWithoutFeedback
+}  = React
+
+// Set a timing for the button press
+const ACTION_TIMER = 400
+// Set the colors you want the button to turn into
+const COLORS = ['rgb(0,0,255)', 'rgb(111,235,62)']
+
+// Create the Gestures component
+class Gestures extends Component {
+  constructor (props) {
+    super(props)
+    this.state = {
+      pressAction: new Animated.Value(0), // Default the value to 0
+      textComplete: '',
+      buttonWidth: 0,
+      buttonHeight: 0
+    }
+    // Bind the context to animationActionComplete
+    this.animationActionComplete = this.animationActionComplete.bind(this)
+  }
+
+  // When the button is pressed, run this code
+  handlePressIn () {
+    // We will run the animation until it turns to 1
+    Animated.timing(this.state.pressAction, {
+      duration: ACTION_TIMER,
+      toValue: 1
+    }).start(this.animationActionComplete)
+    // After the animation finishes, run the animationActionComplete method
+  }
+
+  // When the user doesn't hold on to the button, turn the value back towards 0
+  handlePressOut () {
+    Animated.timing(this.state.pressAction, {
+      duration: this.state.pressAction.__getAnimatedValue() * ACTION_TIMER,
+      toValue: 0
+    }).start(this.animationActionComplete)
+  }
+
+  // Shows a customized message
+  animationActionComplete () {
+    let message = ''
+    if (this.state.pressAction.__getAnimatedValue() === 1) {
+      message = "Thank you for holding :-)"
+    } else {
+      message = 'Press and hold the button!'
+    }
+
+    this.setState({
+      textComplete: message
+    })
+  }
+  // Get the width & height of the button
+  getButtonWidthLayout (e) {
+    this.setState({
+      buttonWidth: e.nativeEvent.layout.width - 6,
+      buttonHeight: e.nativeEvent.layout.height - 6
+    })
+  }
+
+  // Like the getStyle method in the previous example, we will return the style of the button
+  getProgressStyles () {
+    // Map the range of our inputs to the width
+    let width = this.state.pressAction.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, this.state.buttonWidth]
+    })
+    // Map the range of inputs to the colors
+    let bgColor = this.state.pressAction.interpolate({
+      inputRange: [0, 1],
+      outputRange: COLORS
+    })
+
+    return {
+      width: width,
+      height: this.state.buttonHeight,
+      backgroundColor: bgColor
+    }
+  }
+
+  render () {
+    return (
+      <View style={styles.container}>
+        // When users press or unpress this, run the methods
+        <TouchableWithoutFeedback
+          onPressIn={this.handlePressIn.bind(this)}
+          onPressOut={this.handlePressOut.bind(this)}
+          >
+          // A static button, which will provide the width when rendered
+          <View style={styles.button} onLayout={this.getButtonWidthLayout.bind(this)}>
+            <Animated.View style={[styles.bgFill, this.getProgressStyles()]} />
+            <Text style={styles.text}>Press me!</Text>
+          </View>
+        </TouchableWithoutFeedback>
+        <View>
+          // Show the customized message
+          <Text>{this.state.textComplete}</Text>
+        </View>
+      </View>
+    )
+  }
+
+}
+
+// Provide basic styles
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  button: {
+    padding: 10,
+    borderWidth: 3,
+    borderColor: '#111'
+  },
+  text: {
+    backgroundColor: 'transparent',
+    color: '#111'
+  },
+  bgFill: {
+    position: 'absolute',
+    top: 0,
+    left: 0
+  }
+})
+
+module.exports = Gestures;
+{% endhighlight %}
+
+<br />
+
+In this example, we are also tying the Animated library into play. We basically animate a button within a static container so it grows until it hits 1. Also, we got to use the `Animated.interpolate` method, which allows us to map a range to an output range. At this point, we can now bring this component into `PageTwo`.
+
+Write the following code into `PageTwo.js`:
+
+{% highlight js %}
+
+const React = require('react-native')
+const styles = require('../stylesheets/layout')
+
+// Import components
+const Gestures = require('./Gestures')
+
+...
+class PageTwo extends Component {
+  ...
+  render() {
+    return (
+      <View style={[styles.container, {backgroundColor: 'blue'}]}>
+        <Gestures />
+        ...
+      </View>
+    )
+  }
+}
+
+module.exports = PageTwo
+
+
+{% endhighlight %}
+
+Save the code and run your application. You should now have a button that you can press and it will load in a color!
+
+![Loading Button]({{ site.url }}/assets/react-native-tutorial-with-navigation-and-animation/Button.png)
+
+Excellent! Now we will build our last component, the `PanResponder`.
+
+<br />
+
+####PanResponder.js
+<hr />
+<br />
+
+Write this code into `PanResponder.js`:
+
+{% highlight js %}
+const React = require('react-native')
+
+const {
+  Component,
+  StyleSheet,
+  Animated,
+  Text,
+  View,
+  PanResponder,
+  TouchableWithoutFeedback
+} = React;
+
+const SQUARE_DIMENSIONS = 40
+
+class PanResponderAPI extends Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      pan: new Animated.ValueXY()
+    }
+
+    // Bind functions
+    this.getStyle = this.getStyle.bind(this)
+  }
+
+  componentWillMount () {
+    this._panResponder = PanResponder.create({
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onStartShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponder: (evt, gestureState) => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => true,
+      onPanResponderGrant: (evt, gestureState) => {
+        // The guesture has started. Show visual feedback so the user knows
+        // what is happening!
+        this.state.pan.setOffset({
+          x: this.state.pan.x.__getAnimatedValue(),
+          y: this.state.pan.y.__getAnimatedValue()
+        })
+
+        this.state.pan.setValue({
+          x: 0,
+          y: 0
+        })
+
+        // gestureState.{x,y}0 will be set to zero now
+      },
+      onPanResponderMove: Animated.event([
+        null,
+        {
+          dx: this.state.pan.x,
+          dy: this.state.pan.y
+        }
+      ]),
+      onPanResponderTerminationRequest: (evt, gestureState) => true,
+      onPanResponderRelease: (evt, gestureState) => {
+        // The user has released all touches while this view is the
+        // responder. This typically means a gesture has succeeded
+        Animated.spring(this.state.pan, {
+          toValue: 0
+        }).start()
+      }
+    })
+  }
+
+  getStyle () {
+    return [
+      styles.square,
+      {
+        transform: [
+          {
+            translateX: this.state.pan.x
+          },
+          {
+            translateY: this.state.pan.y
+          }
+        ]
+      }
+    ]
+  }
+
+  render () {
+    return (
+      <View style={styles.container}>
+        <Animated.View style={this.getStyle()} {...this._panResponder.panHandlers} />
+      </View>
+    )
+  }
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  square: {
+    width: SQUARE_DIMENSIONS,
+    height: SQUARE_DIMENSIONS,
+    backgroundColor: 'yellow'
+  }
+})
+
+module.exports = PanResponderAPI
+{% endhighlight %}
+
+<br />
+
+##What have we learned?
+
+<br />
+
+>- React Native is an awesome tool to craft native applications.
+- The Navigator is simply a stack that allows us to `push` and `pop` to the different pages.
+- Animating components in React Native using the `Animated` and the `PanResponder` APIs.
+
+<br />
+
+I hope this tutorial got you excited about building native application with React Native. If you have any problems or suggestions, give me a buzz either here or on [Twitter](https://twitter.com/stanleycyang).
+
+You can check out the finished version on [GitHub](https://github.com/stanleycyang/rn_animation_tutorial), and find out more about React Native [here](https://facebook.github.io/react-native/).
+
+<br />
