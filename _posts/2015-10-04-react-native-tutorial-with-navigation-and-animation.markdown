@@ -1196,7 +1196,7 @@ Now when we save and run the code, we should see the following:
 
 ![Draggable Square]({{ site.url }}/assets/react-native-tutorial-with-navigation-and-animation/Square.png)
 
-
+... And at this point, our application is complete! Voila, a fully navigatable and animated iOS application!
 
 
 ##What have we learned?
