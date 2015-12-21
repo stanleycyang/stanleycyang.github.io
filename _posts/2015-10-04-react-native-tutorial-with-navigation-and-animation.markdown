@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "Tutorial: Handcrafting an iOS Application with React Native (and lots of love)"
+redirect_to:
+  - https://www.stanleycyang.com/tutorials/handcrafting-an-ios-application-in-react-native-with-love
 date: 2015-10-04 10:02:30
 categories: technology reactjs native ios
 comments: true

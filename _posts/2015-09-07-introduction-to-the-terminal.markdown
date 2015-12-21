@@ -1,6 +1,8 @@
 ---
 layout: post
 title: "Introduction to the Command Line Interface (CLI)"
+redirect_to:
+  - https://www.stanleycyang.com/tutorials/introduction-to-command-line-interface-basics
 date: 2015-08-30 11:33:40
 categories: technology life
 comments: true
